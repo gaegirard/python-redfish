@@ -237,10 +237,14 @@ class RedfishConnection(object):
         # ===================================================================
 
         # standard
-        self.SessionService = standard.SessionService(
-            self.Root.get_link_url(
-                mapping.redfish_mapper.map_sessionservice()),
-            self.connection_parameters)
+        # Gen-Z simulator has no SessionService for now so handle this case
+        try:
+            self.SessionService = standard.SessionService(
+                self.Root.get_link_url(
+                    mapping.redfish_mapper.map_sessionservice()),
+                self.connection_parameters)
+        except AttributeError:
+            self.SessionService = None
 
         # Moonshot m510 cartridge has neither Managers nor Chassis, so handle
         # this case in the code.
