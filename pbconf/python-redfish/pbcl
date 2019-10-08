@@ -2,8 +2,26 @@
 
 PYTHON-REDFISH CHANGES
 
-v0.4.2 (2050-01-01)
-- TBD ()
+v0.4.3 (2050-01-01)
+- TBD
+
+v0.4.2 (2019-10-08)
+- Fix a link in doc and update develsetup (Madhuri Kumari)
+- Adds bash auto-completion ((Bruno Cornec/René Ribaud)
+- various small fixes (wangqi)
+- fix tox python3 overrides (huang.zhiping)
+- Fix Apache MPM issue (Valentin Boucher)
+- Add doc/requirements.txt to docs tox environment (98k)
+- Update new DMTF standards documents for 2019 (Bruno Cornec)
+- Now uses pb 0.15 to build packages -> YAML conf (Bruno Cornec)
+- Fix RPM dependencies by adding missing pbr and setuptools (Bruno Cornec)
+- Fix example for simulator to work with the HPE ilorestfulapiexplorer (Bruno Cornec)
+- Both Hpe and Hp should be considered for Oem entries (Bruno Cornec)
+- Add a getserial command to redfish-client (Bruno Cornec)
+- Add debian/ubuntu packages built with project-builder.org - tested with Ubuntu 18.04 (Bruno Cornec)
+- OpenDev.org migration (OpenDev.org)
+- Use Zuul v3 features (Bruno Cornec/Andreas Jaeger)
+- Adds Gen-Z simulator support (Bruno Cornec)
 
 v0.4.1 (2017-03-08)
 - Fix delivery to Pypi (Bruno Cornec/René Ribaud)
