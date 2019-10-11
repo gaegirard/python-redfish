@@ -57,7 +57,7 @@ print("Bios version : {}\n".format(
 print("Serial Number : {}\n".format(
     remote_mgmt.Systems.systems_dict["1"].get_serial_number()))
 print("Power State : {}\n".format(
-    remote_mgmt.Systems.systems_dict["1"].get_power()))
+    remote_mgmt.Systems.systems_dict["1"].get_powerstate()))
 print("Parameter 'SystemType' : {}\n".format(
     remote_mgmt.Systems.systems_dict["1"].get_parameter("SystemType")))
 

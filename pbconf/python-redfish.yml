@@ -115,7 +115,7 @@ vetype:
 # Global version/tag for the project
 #
 projver:
-  python-redfish: 0.4.2
+  python-redfish: 0.4.3
 projtag:
   python-redfish: 1
 #
@@ -125,22 +125,23 @@ projtag:
 #
 # Is it a test version or a production version
 testver:
-  python-redfish: !!str ""
+        #python-redfish: !!str ""
+  python-redfish: true
 # Which upper target dir for delivery
 delivery:
-  python-redfish: !!str ""
+  python-redfish: test
+  #python-redfish: !!str ""
 #
 # Additional repository to add at build time
 # addrepo centos-5-x86_64 = http://packages.sw.be/rpmforge-release/rpmforge-release-0.3.6-1.el5.rf.x86_64.rpm,ftp://ftp.project-builder.org/centos/5/pb.repo
 # addrepo centos-4-x86_64 = http://packages.sw.be/rpmforge-release/rpmforge-release-0.3.6-1.el4.rf.x86_64.rpm,ftp://ftp.project-builder.org/centos/4/pb.repo
 # This will allow usage of python-simplejson 1.8.1
-addrepo:
-  centos-7-x86_64: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm,ftp://ftp.project-builder.org/centos/7/x86_64/pb.repo
-  mageia-5-x86_64: ftp://ftp.project-builder.org/mageia/5/x86_64/pb.addmedia
-  fedora-25-x86_64: ftp://ftp.project-builder.org/fedora/25/x86_64/pb.repo
+addbuildrepo:
+  du: ftp://ftp.project-builder.org/$pbos->{'name'}/$pbos->{'version'}/python-tortilla.sources.list
+  rpm: ftp://ftp.project-builder.org/$pbos->{'name'}/$pbos->{'version'}/$pbos->{'arch'}/python-tortilla.repo
+  md: !!str ""
+  centos: https://dl.fedoraproject.org/pub/epel/epel-release-latest-$pbos->{'version'}.noarch.rpm,ftp://ftp.project-builder.org/$pbos->{'name'}/$pbos->{'version'}/$pbos->{'arch'}/python-tortilla.repo
   opensuse-42.2-x86_64: ftp://ftp.project-builder.org/opensuse/42.2/x86_64/pb.repo,http://download.opensuse.org/repositories/devel:languages:python3/openSUSE_Leap_42.2/devel:languages:python3.repo,http://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Leap_42.2/Virtualization:containers.repo,http://download.opensuse.org/repositories/devel:languages:python/openSUSE_Leap_42.2/devel:languages:python.repo
-  ubuntu-12.04-x86_64: ftp://ftp.project-builder.org/ubuntu/12.04/python-tortilla.sources.list
-  ubuntu-18.04-x86_64: ftp://ftp.project-builder.org/ubuntu/18.04/python-tortilla.sources.list
 #
 # Adapt to your needs:
 # Optional if you need to overwrite the global values above

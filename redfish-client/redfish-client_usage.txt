@@ -10,6 +10,7 @@ Usage:
   redfish-client [options] chassis getinfo [<manager_name>]
   redfish-client [options] system getinfo [<manager_name>]
   redfish-client [options] getserial [<manager_name>]
+  redfish-client [options] monitor [<manager_name>]
   redfish-client (-h | --help)
   redfish-client --version
 
@@ -25,6 +26,9 @@ Options:
   --debugfile FILE     Specify the client debugfile [default: $HOME/.redfish/redfish-client.log]
   --libdebugfile FILE  Specify python-redfish library log file [default: $HOME/.redfish/python-redfish.log]
 
-config commands : manage the configuration file.
-manager commands : manage the manager (Light out management). If <manager_name>
-                   is not provided use the 'default' entry
+Commands:
+config:                 manage the configuration file (add, remove modify managers).
+manager/chassis/system: manage the manager/chassis/system (Light out management). If <manager_name>
+                        is not provided use the 'default' entry
+getserial:              display all serial numbers found through that manager to allow inventory 
+monitor:                monitor changing variables accessible through that manager in a loop (CTRL-C to exit)

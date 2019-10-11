@@ -322,30 +322,6 @@ class Systems(Device):
         except AttributeError:
             return "Not available"
 
-    def get_power(self):
-        '''Get power status of the system.
-
-        :returns: system power state or "Not available"
-        :rtype: string
-
-        '''
-        try:
-            return self.data.PowerState
-        except AttributeError:
-            return "Not available"
-
-    def get_description(self):
-        '''Get description of the system.
-
-        :returns: system description or "Not available"
-        :rtype: string
-
-        '''
-        try:
-            return self.data.Description
-        except AttributeError:
-            return "Not available"
-
     def get_cpucount(self):
         '''Get the number of cpu in the system.
 
@@ -697,21 +673,6 @@ class ChassisCollection(BaseCollection):
 
 class Chassis(Device):
     '''Class to manage redfish Chassis data.'''
-    def __init__(self, url, connection_parameters):
-        '''Class constructor'''
-        super(Chassis, self).__init__(url, connection_parameters)
-
-        try:
-            self.thermal = Thermal(self.get_link_url('Thermal'),
-                                   connection_parameters)
-        except AttributeError:
-            self.thermal = None
-
-        try:
-            self.power = Power(self.get_link_url('Power'),
-                               connection_parameters)
-        except AttributeError:
-            self.Power = None
 
     def get_type(self):
         '''Get chassis type
@@ -724,43 +685,3 @@ class Chassis(Device):
             return self.data.ChassisType
         except AttributeError:
             return "Not available"
-
-
-class Thermal(Base):
-    '''Class to manage redfish Thermal data.'''
-    def get_temperatures(self):
-        '''Get chassis sensors name and temparature
-
-        :returns: chassis sensor and temperature
-        :rtype: dict
-
-        '''
-        temperatures = {}
-
-        try:
-            for sensor in self.data.Temperatures:
-                temperatures[sensor.Name] = sensor.ReadingCelsius
-            return temperatures
-        except AttributeError:
-            return "Not available"
-
-    def get_fans(self):
-        '''Get chassis fan name and rpm
-
-        :returns: chassis fan and rpm
-        :rtype: dict
-
-        '''
-        fans = {}
-
-        try:
-            for fan in self.data.Fans:
-                fans[fan.FanName] = fan.ReadingRPM
-            return fans
-        except AttributeError:
-            return "Not available"
-
-
-class Power(Base):
-    '''Class to manage redfish Power data.'''
-    pass

@@ -31,7 +31,7 @@ CPU number: {{ system.get_cpucount() }}
 CPU model: {{ system.get_cpumodel() }}
 Available memory: {{ system.get_memory() }} GB
 Status: State: {{ system.get_status().Health }} / Health: {{ system.get_status().Health }}
-Power: {{ system.get_power() }}
+Power: {{ system.get_powerstate() }}
 {%- if system.data.Oem.Hpe or system.data.Oem.Hp %}
 {%- if system.network_adapters_collection %}
 {%- for nic_index in system.network_adapters_collection.network_adapters_dict | sort %}

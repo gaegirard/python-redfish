@@ -16,6 +16,7 @@ from builtins import object
 
 import os
 import sys
+import time
 import json
 import docopt
 import logging
@@ -24,6 +25,8 @@ import jinja2
 import requests.packages.urllib3
 import redfish
 standard_library.install_aliases()
+
+DEFMONITORLOOP = 120	                # Default loop value for monitor command
 
 
 class InventoryFile(object):
@@ -252,6 +255,11 @@ if __name__ == '__main__':
         # information using jinja2 template
         render_template("serial_info.template")
 
+    def monitor(redfish_data):
+        # Monitor variable values accessible by the manager
+        # information using jinja2 template
+        render_template("monitor_info.template")
+
     def render_template(template):
         try:
             template = jinja2_env.get_template(template)
@@ -355,6 +363,7 @@ if __name__ == '__main__':
 
     # Initialize Template system (jinja2)
     templates_path = config.get("redfish-client", "templates_path")
+    dml = float(config.get("redfish-client", "monitor_loop", DEFMONITORLOOP))
     logger.debug("Initialize template system")
     jinja2_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(templates_path))
@@ -401,7 +410,10 @@ if __name__ == '__main__':
                                          arguments['<changed_value>'])
             logger.debug(inventory.data)
             inventory.save()
-    elif arguments['getinfo'] is True or arguments['getserial'] is True:
+    elif (arguments['getinfo'] is True or
+          arguments['getserial'] is True or
+          arguments['monitor'] is True):
+
         logger.debug('get commands')
         # If manager is not defined set it to 'default'
         if not arguments['<manager_name>']:
@@ -417,10 +429,9 @@ if __name__ == '__main__':
         #        Could be a nice exercice for learning python. :)
         logger.info('Gathering data from manager')
 
-        if arguments['--insecure'] is True:
-            redfish_data = get_redfish_data(connection_parameters, False)
-        else:
-            redfish_data = get_redfish_data(connection_parameters, True)
+        redfish_data = get_redfish_data(connection_parameters,
+                                        not arguments['--insecure'])
+
         if arguments['getinfo'] is True:
             if arguments['manager'] is True:
                 logger.debug("Manager commands")
@@ -434,5 +445,14 @@ if __name__ == '__main__':
         if arguments['getserial'] is True:
             logger.debug("serial & part number commands")
             display_part_serial_numbers(redfish_data)
+        if arguments['monitor'] is True:
+            logger.debug("monitor command")
+            monitor(redfish_data)
+            while True:
+                print("Sleeping for {} seconds".format(dml))
+                time.sleep(dml)
+                redfish_data = get_redfish_data(connection_parameters,
+                                                not arguments['--insecure'])
+                monitor(redfish_data)
     logger.info("Client session terminated")
     sys.exit(0)

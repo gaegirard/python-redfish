@@ -15,6 +15,7 @@ import ssl
 from . import config
 from . import mapping
 from . import exception
+
 standard_library.install_aliases()
 
 
@@ -172,10 +173,97 @@ class BaseCollection(Base):
         config.logger.debug(self.links)
 
 
+class Thermal(Base):
+    '''Class to manage redfish Thermal data.'''
+
+    # Currently doesn't support case such as:
+    # /redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/DiskDrives/1/
+    # u'CurrentTemperatureCelsius': 45
+    def get_temperatures(self):
+        '''Get chassis sensors name and temperature
+
+        :returns: chassis sensor and temperature
+        :rtype: dict
+
+        '''
+        temperatures = {}
+
+        try:
+            for sensor in self.data.Temperatures:
+                temperatures[sensor.Name] = sensor.ReadingCelsius
+            return temperatures
+        except AttributeError:
+            return "Not available"
+
+    def get_fans(self):
+        '''Get chassis fan name and rpm
+
+        :returns: chassis fan and rpm
+        :rtype: dict
+
+        '''
+        fans = {}
+
+        try:
+            for fan in self.data.Fans:
+                # New interface
+                fans[fan.Name] = str(fan.Reading) + ' ' + fan.ReadingUnits
+            return fans
+        except AttributeError:
+            try:
+                # Old interface
+                for fan in self.data.Fans:
+                    fans[fan.FanName] = fan.ReadingRPM
+
+                return fans
+
+            except AttributeError:
+                return "Not available"
+
+
+class Power(Base):
+    '''Class to manage redfish Power data.'''
+
+    def get_power(self):
+        '''Get power supply informartion
+
+        :returns: power supply and Voltage
+        :rtype: dict
+
+        '''
+        pc = {}
+
+        # config.logger.debug("PowerControl parsed")
+        # config.logger.debug(self.data)
+        try:
+            for p in self.data.PowerControl:
+                pc[p.MemberId] = str(p.PowerConsumedWatts) + ' Watts'
+            return pc
+        except AttributeError:
+            return "Not available"
+
+
 class Device(Base):
     '''Abstract class to add common methods between devices
     (Chassis, Servers, System).
     '''
+
+    def __init__(self, url, connection_parameters):
+        '''Class constructor'''
+        super(Device, self).__init__(url, connection_parameters)
+
+        try:
+            url2 = self.get_link_url('Thermal')
+            self.thermal = Thermal(url2, connection_parameters)
+        except AttributeError:
+            self.thermal = Thermal(url, connection_parameters)
+
+        try:
+            url2 = self.get_link_url('Power')
+            self.power = Power(url2, connection_parameters)
+        except AttributeError:
+            self.power = Power(url, connection_parameters)
+
     def get_uuid(self):
         '''Get device uuid
 
@@ -286,6 +374,30 @@ class Device(Base):
                 return self.data.ProductName
             except AttributeError:
                 return "Not available"
+
+    def get_description(self):
+        '''Get description of the device.
+
+        :returns: device description or "Not available"
+        :rtype: string
+
+        '''
+        try:
+            return self.data.Description
+        except AttributeError:
+            return "Not available"
+
+    def get_powerstate(self):
+        '''Get power status of the device.
+
+        :returns: device power state or "Not available"
+        :rtype: string
+
+        '''
+        try:
+            return self.data.PowerState
+        except AttributeError:
+            return "Not available"
 
     def get_fw_version(self):
         '''Get firmware version of the device.
