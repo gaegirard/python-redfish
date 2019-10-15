@@ -125,12 +125,12 @@ projtag:
 #
 # Is it a test version or a production version
 testver:
-        #python-redfish: !!str ""
-  python-redfish: true
+  python-redfish: !!str ""
+  #python-redfish: true
 # Which upper target dir for delivery
 delivery:
-  python-redfish: test
-  #python-redfish: !!str ""
+  #python-redfish: test
+  python-redfish: !!str ""
 #
 # Additional repository to add at build time
 # addrepo centos-5-x86_64 = http://packages.sw.be/rpmforge-release/rpmforge-release-0.3.6-1.el5.rf.x86_64.rpm,ftp://ftp.project-builder.org/centos/5/pb.repo

@@ -2,8 +2,11 @@
 
 PYTHON-REDFISH CHANGES
 
-v0.4.3 (2050-01-01)
+v0.4.4 (2050-01-01)
 - TBD
+
+v0.4.3 (2019-10-14)
+- Adds a monitor command (Bruno Cornec)
 
 v0.4.2 (2019-10-08)
 - Fix a link in doc and update develsetup (Madhuri Kumari)
