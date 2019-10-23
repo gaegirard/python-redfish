@@ -363,7 +363,9 @@ if __name__ == '__main__':
 
     # Initialize Template system (jinja2)
     templates_path = config.get("redfish-client", "templates_path")
-    dml = float(config.get("redfish-client", "monitor_loop", DEFMONITORLOOP))
+    dml = float(config.get("redfish-client", "monitor_loop"))
+    if dml is None:
+        dml = DEFMONITORLOOP
     logger.debug("Initialize template system")
     jinja2_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(templates_path))
