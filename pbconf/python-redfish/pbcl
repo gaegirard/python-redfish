@@ -2,8 +2,9 @@
 
 PYTHON-REDFISH CHANGES
 
-v0.4.4 (2050-01-01)
-- TBD
+v0.4.4 (2019-10-30)
+- Fix monitor_sleep default initialization
+- Fix URLs referenced in doc
 
 v0.4.3 (2019-10-14)
 - Adds a monitor command (Bruno Cornec)
