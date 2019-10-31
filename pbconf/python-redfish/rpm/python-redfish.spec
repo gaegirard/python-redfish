@@ -78,8 +78,8 @@ make latexpdf
 %if %{?with_python3}
 pushd %{py3dir} 
 ./install.sh %{__python3} %{buildroot} %{python3_sitelib} %{_prefix} PBPYTHON3PKG
-mv %{buildroot}%{_bindir}/redfish-client  %{buildroot}%{_bindir}/redfish-client-%{python3_version}
-mv %{buildroot}%{_bindir}/redfish-check-cartridge  %{buildroot}%{_bindir}/redfish-check-cartridge-%{python3_version}
+mv %{buildroot}%{_bindir}/redfish-client  %{buildroot}%{_bindir}/redfish-client-3
+mv %{buildroot}%{_bindir}/redfish-check-cartridge  %{buildroot}%{_bindir}/redfish-check-cartridge-3
 popd
 %endif # if with_python3
 
@@ -112,8 +112,8 @@ done
 %doc README.rst examples/[a-z]*.py LICENSE AUTHORS ChangeLog
 %exclude %{_docdir}/PBREALPKG/manual/html
 %exclude %{_docdir}/PBREALPKG/manual/*.pdf
-%{_bindir}/redfish-client-%{python3_version}
-%{_bindir}/redfish-check-cartridge-%{python3_version}
+%{_bindir}/redfish-client-3
+%{_bindir}/redfish-check-cartridge-3
 %dir %{python3_sitelib}/redfish
 %{python3_sitelib}/redfish/*.py*
 %{python3_sitelib}/redfish/oem/*.py*
