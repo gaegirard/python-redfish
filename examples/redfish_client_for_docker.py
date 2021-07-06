@@ -34,10 +34,13 @@ standard_library.install_aliases()
 #     sys.exit(1)
 
 URL = "http://172.22.119.115:8000/redfish/v1/"
+print("Fetching")
 
 ''' remoteMgmt is a redfish.RedfishConnection object '''
 try:
     remote_mgmt = redfish.connect(URL,
+                                  "",
+                                  "",
                                   simulator=True,
                                   verify_cert=False,
                                   enforceSSL=False)
