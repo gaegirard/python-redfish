@@ -10,4 +10,4 @@ standard_library.install_aliases()
 
 def test_fake():
     print('This is a fake test')
-    assert (1 == 1)
+    assert (2 == 2)

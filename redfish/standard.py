@@ -632,7 +632,7 @@ class SimpleStorageCollection(BaseCollection):
 
 
 class SimpleStorage(Device):
-    '''Class to manage redfish SimpleStorage'''
+    '''Class to manage redfish SimpleStorage.'''
     def get_status(self):
         '''Get storage status
 

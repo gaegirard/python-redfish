@@ -18,7 +18,7 @@ In order to ease test, the DMTF has published a mockup environment to simulate
 a Redfish based system so it is possible to write programs without real Redfish
 compliant hardware platform.
 
-Note: Mockup release is still 0.99.0a and so not aligned with specification realease
+Note: Mockup release is still 0.99.0a and so not aligned with specification release
 number.
 
 Docker container
