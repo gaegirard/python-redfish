@@ -76,4 +76,4 @@ Distribution list: python-redfish@mondorescue.org
 Further References
 ------------------
 
-Please look at `dmtf/README.rst <further_ref.html>`_ file.
+Please look at `dmtf/README.rst <https://github.com/bcornec/python-redfish/blob/master/dmtf/README.rst>`_ file.
